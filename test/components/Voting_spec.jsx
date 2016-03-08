@@ -80,7 +80,6 @@ describe('Voting', () => {
     expect(firstButton.textContent).to.equal('Export');
 
     pair[0] = 'No Movement';
-    console.log('What is this?', pair)
     component = ReactDOM.render(
       <Voting pair={pair} />,
       container
