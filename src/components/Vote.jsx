@@ -39,7 +39,7 @@ class Vote extends React.Component {
 }
 
 Vote.propTypes = {
-  pair: React.PropTypes.object,
+  pair: React.PropTypes.any,
   vote: React.PropTypes.func,
   hasVoted: React.PropTypes.string,
 }
