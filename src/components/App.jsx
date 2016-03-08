@@ -13,7 +13,7 @@ class App extends React.Component {
     return React.cloneElement(this.props.children, {
       pair: pair,
       vote: vote,
-      tally: tally
+      tally: tally,
     })
   }
 }

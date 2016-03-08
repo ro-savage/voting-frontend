@@ -1,6 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
+import Winner from './Winner'
+
 class Results extends React.Component {
   constructor(props) {
     super(props)
@@ -18,16 +20,22 @@ class Results extends React.Component {
     return 0;
   }
   render() {
-    return (
-      <div className="results">
-        {this.getPair().map((entry) =>
-          <div key={entry} className="entry">
-            <h1>{entry}</h1>
-            <div className="voteCount">
-              {this.getVotes(entry)}
+    return ( this.props.winner ?
+    <Winner ref="winner" winner={this.props.winner} /> :
+    <div className="results">
+        <div className="tally">
+          {this.getPair().map((entry) =>
+            <div key={entry} className="entry">
+              <h1>{entry}</h1>
+              <div className="voteCount">
+                {this.getVotes(entry)}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+        <div className="managment">
+          <button ref="next" className="next" onClick={this.props.next}>Next</button>
+        </div>
       </div>
     )}
 }
