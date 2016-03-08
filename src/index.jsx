@@ -5,7 +5,7 @@ import Voting from './components/Voting'
 const pair = ['Export', 'Import']
 
 ReactDOM.render(
-  <Voting pair={pair} vote={()=> {console.log('OMG')}} />,
+  <Voting winner={'Export'} pair={pair} vote={()=> {console.log('OMG')}} />,
     document.getElementById('app')
 )
 
