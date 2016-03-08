@@ -1,24 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Router, Route, hashHistory} from 'react-router'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import {Map} from 'immutable';
 import {Provider} from 'react-redux';
+import io from 'socket.io-client';
 import reducer from './reducer'
+import {setState} from './action_creator'
+import remoteActionMiddleware from './remote_action_middleware'
 import App from './components/App'
 import {VotingContainer} from './components/Voting'
 import {ResultsContainer} from './components/Results'
 
-const store = createStore(reducer, Map(), window.devToolsExtension ? window.devToolsExtension() : undefined);
-store.dispatch({
-  type: 'SET_STATE',
-  state: {
-    vote: {
-      pair: ['Export', 'Import'],
-      tally: {Export: 2}
-    }
-  }
-});
+const createStoreWithMiddleware = applyMiddleware(remoteActionMiddleware)(createStore)
+const store = createStoreWithMiddleware(reducer, Map(), window.devToolsExtension ? window.devToolsExtension() : undefined);
+
+
+const socket = io(`${location.protocol}//${location.hostname}:8090`);
+socket.on('state', (state) => {
+  store.dispatch(setState(state))
+})
 
 const routes = (
   <Route component={App}>
@@ -34,6 +35,3 @@ ReactDOM.render(
   </Provider>,
     document.getElementById('app')
 )
-
-//   <Voting pair={pair} vote={()=> {console.log('OMG')}} hasVoted="Export" />,
-

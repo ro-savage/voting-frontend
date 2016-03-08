@@ -11,7 +11,6 @@ class Vote extends React.Component {
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
   getPair() {
-    console.log(this.props, this.props.pair)
     return this.props.pair || []
   }
   isDisabaled() {
@@ -40,7 +39,7 @@ class Vote extends React.Component {
 }
 
 Vote.propTypes = {
-  pair: React.PropTypes.any.isRequired,
+  pair: React.PropTypes.any,
   vote: React.PropTypes.func,
   hasVoted: React.PropTypes.string,
 }
