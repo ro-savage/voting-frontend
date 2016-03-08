@@ -1,4 +1,6 @@
 import React from 'react'
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {List} from 'immutable'
 
 class Vote extends React.Component {
   constructor(props) {
@@ -6,6 +8,7 @@ class Vote extends React.Component {
     this.getPair = this.getPair.bind(this)
     this.isDisabaled = this.isDisabaled.bind(this)
     this.hasVotedFor = this.hasVotedFor.bind(this)
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
   getPair() {
     return this.props.pair || []
