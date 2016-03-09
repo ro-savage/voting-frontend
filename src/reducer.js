@@ -8,7 +8,9 @@ function setState(state, newState) {
 
 function vote(state, entry) {
   const currentPair = state.getIn(['vote', 'pair'])
+  console.log(entry, currentPair.toJS())
   if (currentPair && currentPair.includes(entry)) {
+    console.log(`Has voted for ${entry}`)
     return state.set('hasVoted', entry)
   } else {
     return state
@@ -17,7 +19,7 @@ function vote(state, entry) {
 
 function resetVote(state) {
   const hasVoted = state.get('hasVoted')
-  const currentPair = state.getIn(['voted', 'pair'], List())
+  const currentPair = state.getIn(['vote', 'pair'], List())
 
   if (hasVoted && !currentPair.includes(hasVoted)) { // Check if the hasVoted prop value is contained in the currentPair array/list
     return state.remove('hasVoted')

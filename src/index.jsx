@@ -12,11 +12,26 @@ import App from './components/App'
 import {VotingContainer} from './components/Voting'
 import {ResultsContainer} from './components/Results'
 
-const createStoreWithMiddleware = applyMiddleware(remoteActionMiddleware)(createStore)
-const store = createStoreWithMiddleware(reducer, Map(), window.devToolsExtension ? window.devToolsExtension() : undefined);
-
+// TODO: Check why PropTypes doesn't work properly
+// TODO: Create end vote button and next vote button
+// TODO: Display the winners of previous rounds (in a tree?)
+// TODO: Allow final round of voting
+// TODO: Add ability to have multiple choices
+// TODO: Add admin interface to create choices
+// TODO: Allow multiple votes to go on at one time
+// TODO: Create unique URLS for each vote
+// TODO: Add ESLint or standards
+// TODO: Add Material-UI
+// TODO: Add inline styles using postCSS
+// TODO: Add real database on the backend
+// TODO: Add multiple vote prevention (maybe maximum votes allowed)
+// TODO: Add autoending when all votes cast
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
+
+const createStoreWithMiddleware = applyMiddleware(remoteActionMiddleware(socket))(createStore)
+const store = createStoreWithMiddleware(reducer, Map(), window.devToolsExtension ? window.devToolsExtension() : undefined);
+
 socket.on('state', (state) => {
   store.dispatch(setState(state))
 })
